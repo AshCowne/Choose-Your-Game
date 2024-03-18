@@ -17,7 +17,7 @@ class Character:
         self.agility = agility
 
     def display_status(self):
-        print("\n--- Status ---")
+        print("\n--- Character Sheet ---")
         print(f"Name: {self.name}")
         print(f"Class: {self.character_class}")
         print(f"Health: {self.health}")
@@ -32,20 +32,6 @@ def intro():
     time.sleep(2)
     print("Let the adventure begin!\n")
     time.sleep(2)
-
-
-def choose_class():
-    print("Choose your character class:")
-    print("1. Warrior")
-    print("2. Rogue")
-    print("3. Mage")
-    choice = input("Your choice: ")
-    classes = {
-        "1": ("Warrior", 100, 10, 5),
-        "2": ("Rogue", 80, 8, 10),
-        "3": ("Mage", 70, 5, 12)
-    }
-    return classes.get(choice, ("Adventurer", 90, 7, 7))  # Default to Adventurer class if choice is invalid
 
 
 def crossroads(character):
@@ -167,36 +153,29 @@ def continue_without_rest():
     print("The babbling brook fades into the distance as you forge ahead, eager to discover what lies ahead.\n")
 
 
-def dragon_victory():
-    print("\nChapter 4: The Conqueror\n")
-    time.sleep(2)
-    print("Having defeated the dragon and claimed its hoard, you return to the village as a conquering hero.\n")
-    time.sleep(2)
-    print("The villagers hail you as their savior, and your name is forever etched into the annals of history.\n")
-
-
-def treasure_hunter():
-    print("\nChapter 4: The Treasure Hunter\n")
-    time.sleep(2)
-    print("With the hidden treasure in your possession, you journey to distant lands in search of more riches.\n")
-    time.sleep(2)
-    print("Your adventures take you to places beyond imagination, and tales of your exploits spread far and wide.\n")
-
-
-def nature_seekers():
-    print("\nChapter 4: The Nature Seekers\n")
-    time.sleep(2)
-    print("Having spent time in nature's embrace, you develop a deep appreciation for the beauty of the world.\n")
-    time.sleep(2)
-    print("You become a protector of the forest, ensuring that its wonders remain untouched for generations to come.\n")
+def choose_new_class(character):
+    print("\nChoose your new character class:")
+    print("1. Warrior")
+    print("2. Rogue")
+    print("3. Mage")
+    choice = input("Your choice: ")
+    classes = {
+        "1": ("Warrior", 100, 10, 5),
+        "2": ("Rogue", 80, 8, 10),
+        "3": ("Mage", 70, 5, 12)
+    }
+    new_class = classes.get(choice, ("Adventurer", 90, 7, 7))  # Default to Adventurer class if choice is invalid
+    character.character_class = new_class[0]
+    character.health = new_class[1]
+    character.strength = new_class[2]
+    character.agility = new_class[3]
+    character.display_status()
 
 
 def main():
     intro()
     name = input("Enter your character's name: ")
-    character_class, health, strength, agility = choose_class()
-    player = Character(name, character_class, health, strength, agility)
-    player.display_status()
+    player = Character(name, "", 0, 0, 0)
 
     crossroads(player)
     choice = input("Your choice: ")
@@ -206,28 +185,28 @@ def main():
         cave_choice = input("Your choice: ")
         if cave_choice == "1":
             dragon_fight()
-            dragon_victory()
+            choose_new_class(player)
         elif cave_choice == "2":
             dragon_flee()
-            treasure_hunter()
+            choose_new_class(player)
     elif choice == "2":
         treasure_path()
         treasure_choice = input("Your choice: ")
         if treasure_choice == "1":
             open_treasure()
-            treasure_hunter()
+            choose_new_class(player)
         elif treasure_choice == "2":
             ignore_treasure()
-            nature_seekers()
+            choose_new_class(player)
     elif choice == "3":
         brook()
         brook_choice = input("Your choice: ")
         if brook_choice == "1":
             rest_at_waterfall()
-            nature_seekers()
+            choose_new_class(player)
         elif brook_choice == "2":
             continue_without_rest()
-            treasure_hunter()
+            choose_new_class(player)
     else:
         print("\nInvalid choice! Please select a valid option.\n")
         main()
