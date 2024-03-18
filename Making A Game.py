@@ -112,4 +112,23 @@ def main():
             print(
                 "You've successfully claimed the hidden treasure and secured your place in history as a legendary adventurer!\n")
         elif treasure_choice == "2":
-            print("\
+            print("\nYou decide to leave the chest untouched and continue on your journey.")
+            print("Though you may never know what treasures it held, your quest continues.\n")
+    elif choice == "3":
+        brook()
+        brook_choice = input("Your choice: ")
+        if brook_choice == "1":
+            print("\nYou take a moment to rest and refresh yourself by the waterfall.")
+            print("Feeling rejuvenated, you continue on your journey with renewed vigor.\n")
+        elif brook_choice == "2":
+            print("\nYou press on with your journey without stopping.")
+            print("The babbling brook fades into the distance as you forge ahead, eager to discover what lies ahead.\n")
+    else:
+        print("\nInvalid choice! Please select a valid option.\n")
+        main()
+
+    outcome()
+
+
+if __name__ == "__main__":
+    main()
